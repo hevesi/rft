@@ -129,3 +129,5 @@ $RECYCLE.BIN/
 
 # Mac desktop service store files
 .DS_Store
+/RFT_Beadando/.vs/RFT_Beadando/v15
+/.vs
