@@ -1,0 +1,37 @@
+﻿CREATE TABLE [dbo].[Jegyvasarlasok] (
+    [Id]        INT      IDENTITY (1, 1) NOT NULL,
+    [VevoId]    INT      NOT NULL,
+    [FilmID]    INT      NOT NULL,
+    [EloadasID] INT      NOT NULL,
+    [Idopont]   DATETIME NOT NULL,
+    PRIMARY KEY CLUSTERED ([Id] ASC),
+    CONSTRAINT [FK_Jegyvasarlasok_Film] FOREIGN KEY ([FilmID]) REFERENCES [dbo].[Filmek] ([Id]),
+    CONSTRAINT [FK_Jegyvasarlasok_Vevo] FOREIGN KEY ([VevoId]) REFERENCES [dbo].[Vevok] ([Id]),
+    CONSTRAINT [FK_Jegyvasarlasok_Eladasok] FOREIGN KEY ([EloadasID]) REFERENCES [dbo].[Eloadasok] ([Id])
+);
+
+CREATE TABLE [dbo].[Filmek] (
+    [Id]      INT           IDENTITY (1, 1) NOT NULL,
+    [Cim]     VARCHAR (50)  NOT NULL,
+    [Mufaj]   VARCHAR (30)  NULL,
+    [Hossz]   INT           NULL,
+    [Rendezo] VARCHAR (100) NULL,
+    PRIMARY KEY CLUSTERED ([Id] ASC)
+);
+
+
+CREATE TABLE [dbo].[Eloadasok] (
+    [Id]      INT      IDENTITY (1, 1) NOT NULL,
+    [FilmID]  INT      NOT NULL,
+    [Idopont] DATETIME NOT NULL,
+    PRIMARY KEY CLUSTERED ([Id] ASC)
+);
+
+
+CREATE TABLE [dbo].[Vevok] (
+    [Id]          INT            IDENTITY (1, 1) NOT NULL,
+    [Nev]         NVARCHAR (256) NOT NULL,
+    [Torzsvendeg] BIT            DEFAULT ((0)) NOT NULL,
+    PRIMARY KEY CLUSTERED ([Id] ASC)
+);
+
