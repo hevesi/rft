@@ -1,5 +1,5 @@
 <?php
-    require_once '/core/config.php';
+    require_once '../core/config.php';
     
     function getConnection(){
         $connection = new PDO(DB_TYPE.':host='.DB_HOST.';dbname='.DB_NAME, DB_USER, DB_PASS);
@@ -22,7 +22,7 @@
         return $result;
     }
     
-    function QL_row($query, $params = []){
+    function QL_row($query, $params = []){        
         $connection = getConnection();
         $statement = $connection->prepare($query);
         $statement->execute($params);

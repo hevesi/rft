@@ -1,0 +1,1 @@
+<center><h1>The page's administrative interface.</h1></center>

@@ -1,24 +1,28 @@
 <!DOCTYPE html>
-<!--
-To change this license header, choose License Headers in Project Properties.
-To change this template file, choose Tools | Templates
-and open the template in the editor.
--->
-<html>
-    <head>
-        <meta charset="UTF-8">
-        <title></title>
-    </head>
-    <body>
+
         <?php
-        include_once 'core/database.php';
+        include_once '../core/database.php';
         function getFilms(){
             $query1 = QL_array('SELECT * FROM rft_filmek') ;
            // var_dump($query1);
             $a = "a";
+            $qarray[] = null;
+            $i = 0;
+            foreach ($query1 as $value) {
+                $tmp =[
+                    'id'        => $value['id'],
+                    'cim'       => $value['cim'],
+                    'mufaj'     => $value['mufaj'],
+                    'hossz'     => $value['hossz'],
+                    'rendezo'   =>$value['rendezo'],
+                    'vetitike'  =>$value['vetitike']
+                ];
+                $qarray[$i] = $tmp;
+                $i++;
+            }
             $asd = [
                 'good'    => 'true',
-                'array' => $query1
+                'array' => $qarray
             ];
             return json_encode($asd);
         }
@@ -34,13 +38,12 @@ and open the template in the editor.
         echo generateRandomString(64);
         echo getFilms();
         $a = json_decode(getFilms(), true);
-        var_dump($a);
+        //var_dump($a);
         $ar = $a['array'];
-        var_dump($ar);
+        //var_dump($ar);
         /*foreach ($a['array'] as $value) {
             echo $value[id];
         }*/
-        
+        echo '<br><br>api key: '. generateRandomString(16) .'<br>';
+        echo 'security key: '. generateRandomString(45);
         ?>
-    </body>
-</html>
