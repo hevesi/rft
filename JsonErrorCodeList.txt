@@ -1,0 +1,18 @@
+Error code list:
+0x0	- Access denied.
+0x1 - Access denied (invalid API and Security key).
+0x2 - Security key for the API key does not match.
+0x3 - No data was sent.
+0x4 - Invalid 'request' parameter.
+0x5 - Invalid 'want' parameter.
+0x6 - The list of Movies is empty.
+0x7 - The list of Buyers is empty.
+0x8 - The list of purchases is empty.
+0x9 - The list of screenings is empty.
+0xa - Buyer's recording failed.
+0xb - Recording the movie failed.
+0xc - Lecture recording failed.
+0xd - Recording the Buying failed.
+0xe - Buyer update failed.
+0xf - Movie update failed.
+0x10 - Lecture update failed.
