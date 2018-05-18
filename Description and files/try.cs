@@ -34,7 +34,7 @@ namespace jsontry {
     {    
         private string _nev;
 
-        public string Nev
+        public string nev
         {
             get { return _nev; }
             set { _nev = value; }
@@ -42,7 +42,7 @@ namespace jsontry {
 
         private int _torzsvendeg;
 
-        public int Torzsvendeg
+        public int torzsvendeg
         {
             get { return _torzsvendeg; }
             set
@@ -64,10 +64,10 @@ namespace jsontry {
         static void Main(string[] args)
         {
             Vevo vev = new Vevo();
-            vev.Nev = "nagy józsi";
-            vev.Torzsvendeg = 1;
-            vev.want = "vasarlasok";
-            vev.request = QueryList.query;
+            vev.nev = "nagy józsi";
+            vev.torzsvendeg = 1;
+            vev.want = "buyer";
+            vev.request = QueryList.insert;
             string asd = "data="+JsonConvert.SerializeObject(vev);
 
             Console.WriteLine(asd);

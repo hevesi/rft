@@ -337,22 +337,22 @@ function setUpdate($data){
         }
     }
 }
-
-if(array_key_exists("data", $_POST)){    
+ 
+if(array_key_exists("data", $_POST )){ 
     if($_POST['data'] != NULL && $_POST['data'] != ""){
         $data = json_decode((string)$_POST['data'], true);
         if(getValid($data['apikey'], $data['securitykey'])){
             switch ($data['request']){
-                case "0":{ //query
+                case 0:{ //query
                     getQuery($data);
                 }break;
-                case "1":{ //insert
+                case 1:{ //insert
                     setInsert($data);
                 }break;
-                case "2":{ //updaate
+                case 2:{ //updaate
                     setUpdate($data);
                 }break;
-                case "3":{ //delete (in the near future)
+                case 3:{ //delete (in the near future)
                 }break;
                 default :{
                     $error = ['errorcode' => '0x4'];
