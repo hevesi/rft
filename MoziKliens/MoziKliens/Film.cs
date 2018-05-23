@@ -8,6 +8,9 @@ namespace MoziKliens
 {
     class Film : BaseQuery
     {
+        int _id;
+        public int id { get { return _id; } set { _id = value; } }
+
         string _cim;
         public string cim
         {
@@ -39,6 +42,13 @@ namespace MoziKliens
         {
             get { return _rendezo; }
             set { _rendezo = value; }
+        }
+
+        int _vetitik;
+        public int vetitik
+        {
+            get { return _vetitik; }
+            set { _vetitik = value; }
         }
     }
 }
