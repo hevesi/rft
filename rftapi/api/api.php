@@ -199,18 +199,18 @@ function setBuyer($data){
 function setMovies($data){
     $error = ['errorcode' => '0xb'];
     if(array_key_exists("cim", $data) && array_key_exists("mufaj", $data) && array_key_exists("hossz", $data) && array_key_exists("rendezo", $data) && array_key_exists("vetitike", $data)){
-        if(executeDML("INSERT INTO rft_filmek(cim,mufaj,hossz,rendezo,vetitike) VALUES(:com, :mufaj, :hossz, :rendezo, :vetitike)", 
-                [':cim' => $data['cim'], ':mufaj' => $data['mufaj'], ':hossz' => $data['hossz'], ':vetitike' => $data['vetitike']]))
+        if(executeDML("INSERT INTO rft_filmek(cim,mufaj,hossz,rendezo,vetitike) VALUES(:cim, :mufaj, :hossz, :rendezo, :vetitike)", 
+                [':cim' => $data['cim'], ':mufaj' => $data['mufaj'], ':hossz' => $data['hossz'], ':rendezo' => $data['rendezo'], ':vetitike' => $data['vetitike']]))
             echo Success();
         else 
             echo HalfSuccess($error);
     }elseif(array_key_exists("cim", $data) && array_key_exists("mufaj", $data) && array_key_exists("hossz", $data) && array_key_exists("rendezo", $data)){
-        if(executeDML("INSERT INTO rft_filmek(cim,mufaj,hossz,rendezo,vetitike) VALUES(:com, :mufaj, :hossz, :rendezo)", 
-                [':cim' => $data['cim'], ':mufaj' => $data['mufaj'], ':hossz' => $data['hossz']]))
+        if(executeDML("INSERT INTO rft_filmek(cim,mufaj,hossz,rendezo) VALUES(:cim, :mufaj, :hossz, :rendezo)", 
+                [':cim' => $data['cim'], ':mufaj' => $data['mufaj'], ':hossz' => $data['hossz'],':rendezo' => $data['rendezo']]))
             echo Success();
         else 
             echo HalfSuccess($error);
-    }elseif (array_key_exists("nev", $data)) {
+    }elseif (array_key_exists("cim", $data)) {
         if(executeDML("INSERT INTO rft_filmek(cim) VALUES(:cim)", [':cim' => $data['cim']]))
             echo Success();
         else 
@@ -369,5 +369,5 @@ if(array_key_exists("data", $_POST )){
         return;
     }
 }
-echo Error();
+echo Success();
 ?>
