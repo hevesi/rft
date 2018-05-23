@@ -32,8 +32,8 @@
             this.button1 = new System.Windows.Forms.Button();
             this.button2 = new System.Windows.Forms.Button();
             this.button3 = new System.Windows.Forms.Button();
-            this.textBox1 = new System.Windows.Forms.TextBox();
-            this.textBox2 = new System.Windows.Forms.TextBox();
+            this.tb_mufaj = new System.Windows.Forms.TextBox();
+            this.tb_cim = new System.Windows.Forms.TextBox();
             this.button4 = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.SuspendLayout();
@@ -43,7 +43,7 @@
             this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridView1.Location = new System.Drawing.Point(13, 47);
             this.dataGridView1.Name = "dataGridView1";
-            this.dataGridView1.Size = new System.Drawing.Size(494, 150);
+            this.dataGridView1.Size = new System.Drawing.Size(603, 150);
             this.dataGridView1.TabIndex = 0;
             this.dataGridView1.UserAddedRow += new System.Windows.Forms.DataGridViewRowEventHandler(this.dataGridView1_UserAddedRow);
             // 
@@ -77,21 +77,21 @@
             this.button3.UseVisualStyleBackColor = true;
             this.button3.Click += new System.EventHandler(this.button3_Click);
             // 
-            // textBox1
+            // tb_mufaj
             // 
-            this.textBox1.Location = new System.Drawing.Point(317, 217);
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(100, 20);
-            this.textBox1.TabIndex = 4;
-            this.textBox1.TextChanged += new System.EventHandler(this.textBox1_TextChanged);
+            this.tb_mufaj.Location = new System.Drawing.Point(319, 217);
+            this.tb_mufaj.Name = "tb_mufaj";
+            this.tb_mufaj.Size = new System.Drawing.Size(100, 20);
+            this.tb_mufaj.TabIndex = 4;
+            this.tb_mufaj.TextChanged += new System.EventHandler(this.textBox1_TextChanged);
             // 
-            // textBox2
+            // tb_cim
             // 
-            this.textBox2.Location = new System.Drawing.Point(171, 217);
-            this.textBox2.Name = "textBox2";
-            this.textBox2.Size = new System.Drawing.Size(100, 20);
-            this.textBox2.TabIndex = 5;
-            this.textBox2.TextChanged += new System.EventHandler(this.textBox2_TextChanged);
+            this.tb_cim.Location = new System.Drawing.Point(171, 217);
+            this.tb_cim.Name = "tb_cim";
+            this.tb_cim.Size = new System.Drawing.Size(100, 20);
+            this.tb_cim.TabIndex = 5;
+            this.tb_cim.TextChanged += new System.EventHandler(this.textBox2_TextChanged);
             // 
             // button4
             // 
@@ -99,7 +99,7 @@
             this.button4.Name = "button4";
             this.button4.Size = new System.Drawing.Size(175, 23);
             this.button4.TabIndex = 6;
-            this.button4.Text = "Új sor hozzáadása adatbázishoz";
+            this.button4.Text = "Új film hozzáadása";
             this.button4.UseVisualStyleBackColor = true;
             this.button4.Click += new System.EventHandler(this.button4_Click);
             // 
@@ -109,14 +109,14 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(659, 383);
             this.Controls.Add(this.button4);
-            this.Controls.Add(this.textBox2);
-            this.Controls.Add(this.textBox1);
+            this.Controls.Add(this.tb_cim);
+            this.Controls.Add(this.tb_mufaj);
             this.Controls.Add(this.button3);
             this.Controls.Add(this.button2);
             this.Controls.Add(this.button1);
             this.Controls.Add(this.dataGridView1);
             this.Name = "ClientForm";
-            this.Text = "ClientForm";
+            this.Text = "MoziApp";
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
@@ -129,8 +129,8 @@
         private System.Windows.Forms.Button button1;
         private System.Windows.Forms.Button button2;
         private System.Windows.Forms.Button button3;
-        private System.Windows.Forms.TextBox textBox1;
-        private System.Windows.Forms.TextBox textBox2;
+        private System.Windows.Forms.TextBox tb_mufaj;
+        private System.Windows.Forms.TextBox tb_cim;
         private System.Windows.Forms.Button button4;
     }
 }

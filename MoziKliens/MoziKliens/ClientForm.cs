@@ -17,18 +17,20 @@ namespace MoziKliens
 {
     public partial class ClientForm : Form
     {
+        DataTable dt = new DataTable();
+        List<Film> filmek = new List<Film>();
+        
         private static readonly HttpClient client = new HttpClient();
         public ClientForm()
         {
             InitializeComponent();
+            GetMovies();
+            
             
 
-            dataGridView1.ColumnCount = 4;
-            dataGridView1.Columns[0].Name = "id";
-            dataGridView1.Columns[1].Name = "Cím";
-            dataGridView1.Columns[2].Name = "Hossz";
-            dataGridView1.Columns[3].Name = "Műfaj";
-
+        }
+        void GetMovies()
+        {
             Film film = new Film();
             film.want = "filmek";
             film.request = QueryList.query;
@@ -46,24 +48,76 @@ namespace MoziKliens
             }
 
             var httpResponse = (HttpWebResponse)httpWebRequest.GetResponse();
+            string[] responses;
+            string result;
             using (var streamReader = new StreamReader(httpResponse.GetResponseStream()))
             {
-                var result = streamReader.ReadToEnd();
-                MessageBox.Show(result);
-                string[] response = result.Split(',');
+                result = streamReader.ReadToEnd();
+                responses = result.Split('{');
+
 
             }
-             
+            string[] success = responses[1].Split(',');
+            if (success[1] == "\"successful\":\"true\"")
+            {
+                for (int i = 2; i < responses.Length; i++)
+                {
+                    responses[i] =responses[i].Replace("\"", String.Empty);
+                    responses[i] = responses[i].Replace(":", ",");
+
+                    string[] singleEntry = responses[i].Split(',');
+
+                    Film newFilm = new Film();
+                    newFilm.id = int.Parse(singleEntry[1]);
+                    newFilm.cim = singleEntry[3];
+                    if (singleEntry[5] != "null")
+                        newFilm.mufaj = singleEntry[5];
+                    if (singleEntry[7] != "null")
+                        newFilm.hossz = int.Parse(singleEntry[7]);
+                    if (singleEntry[9] != "null")
+                        newFilm.rendezo = singleEntry[9];
+
+                    filmek.Add(newFilm);
+
+                }
+                UpdateMoviesDataGrid();
             }
 
+        }
+
+        void UpdateMoviesDataGrid()
+        {
+            dt = new DataTable();
+            dt.Columns.Add("id");
+            dt.Columns.Add("Cím");
+            dt.Columns.Add("Műfaj");
+            dt.Columns.Add("Hossz");
+            dt.Columns.Add("Rendező");
+
+            //dataGridView1.DataSource = null;
+            //dataGridView1.Rows.Clear();
+
+            foreach(Film item in filmek)
+            {
+                string[] row = new string[] { item.id.ToString(), item.cim, item.mufaj, item.hossz.ToString(), item.rendezo };
+                dt.Rows.Add(row);
+            }
+            dataGridView1.DataSource = dt;
+        }
         private void button2_Click(object sender, EventArgs e)
         {
-        
+            BindingSource bs = new BindingSource();
+            bs.DataSource = dataGridView1.DataSource;
+            bs.Filter = "Cím Like '%" + tb_cim.Text + "%'";
+            dataGridView1.DataSource = bs;
         }
 
         private void button3_Click(object sender, EventArgs e)
         {
-        
+            BindingSource bs = new BindingSource();
+            bs.DataSource = dataGridView1.DataSource;
+            bs.Filter = "Műfaj Like '%" + tb_mufaj.Text + "%'";
+            dataGridView1.DataSource = bs;
         }
         //bool newRow;
         private void dataGridView1_UserAddedRow(object sender, DataGridViewRowEventArgs e)
@@ -73,13 +127,14 @@ namespace MoziKliens
 
         private void button4_Click(object sender, EventArgs e)
         {
-        
+            NewMovieForm newMovie = new NewMovieForm();
+            newMovie.Show();
     
         }
 
         private void button1_Click(object sender, EventArgs e)
         {
-        
+            UpdateMoviesDataGrid();
         }
 
         private void textBox2_TextChanged(object sender, EventArgs e)
@@ -92,10 +147,5 @@ namespace MoziKliens
 
         }
 
-        private void button5_Click(object sender, EventArgs e)
-        {
-            
-        
-        }
     }
 }
