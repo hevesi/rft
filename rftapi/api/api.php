@@ -208,7 +208,7 @@ function setMovies($data){
         if(executeDML("INSERT INTO rft_filmek(cim,mufaj,hossz,rendezo) VALUES(:cim, :mufaj, :hossz, :rendezo)", 
                 [':cim' => $data['cim'], ':mufaj' => $data['mufaj'], ':hossz' => $data['hossz'],':rendezo' => $data['rendezo']]))
             echo Success();
-        else  
+        else 
             echo HalfSuccess($error);
     }elseif (array_key_exists("cim", $data)) {
         if(executeDML("INSERT INTO rft_filmek(cim) VALUES(:cim)", [':cim' => $data['cim']]))
