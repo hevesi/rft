@@ -40,7 +40,6 @@ namespace MoziKliens
                 film.rendezo = tb_rendezo.Text;
                 film.vetitik = 1;
                 string cmd = "data=" + JsonConvert.SerializeObject(film);
-                MessageBox.Show(cmd);
                 var httpWebRequest = (HttpWebRequest)WebRequest.Create("http://localhost/rftapi/api/api.php");
                 httpWebRequest.ContentType = "application/x-www-form-urlencoded";
                 httpWebRequest.Method = "POST";
@@ -60,16 +59,23 @@ namespace MoziKliens
                     result = streamReader.ReadToEnd();
                     responses = result.Split('{');
                 }
-                MessageBox.Show(result);
                 string[] success = responses[1].Split(',');
-                //if (success[1] == "\"successful\":\"true\"")
-                //    MessageBox.Show("Film hozzáadva!");
-                //else
-                //    MessageBox.Show(result);
+                if (success[1] == "\"successful\":\"true\"}")
+                {
+                    MessageBox.Show("Film hozzáadva!");
+                    var ClientForm = Application.OpenForms["ClientForm"] as ClientForm;
+                    ClientForm.GetMovies();
+                }
+                else
+                    MessageBox.Show(result);
             }
             else
                 MessageBox.Show("A hosszhoz számot kell írni!");
         }
-        
+
+        private void button_Exit_Click(object sender, EventArgs e)
+        {
+            this.Close();
+        }
     }
 }
