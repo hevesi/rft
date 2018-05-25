@@ -13,12 +13,9 @@ if(array_key_exists('userEdit', $_POST))
         {
             $data[':password'] = hash('sha256', $_POST['pwd']);
         }
-        else $_POST['error'] = 1;    
+        else $_POST['error'] = 0;    
     }
-    if(!empty($_POST['pwd']) || !empty($_POST['pwd_again'])){
-        $_POST['error'] = 1;
-    }
-    elseif(array_key_exists(':password', $data))
+    if(array_key_exists(':password', $data))
     {
         $q = "UPDATE rft_admin SET name = :name, email = :email, password = :password WHERE id = :id";
     }
@@ -26,11 +23,11 @@ if(array_key_exists('userEdit', $_POST))
     { 
         $q = "UPDATE rft_admin SET name = :name, email = :email WHERE id = :id";
     }    
-    if(!isset($_POST['error']) && executeDML($q, $data))
+    if(executeDML($q, $data))
     {
         $_POST['good'] = 0;
     }
-    elseif(!isset($_POST['error'])) 
+    else 
     {
         $_POST['error'] = 0;
     }
@@ -67,8 +64,6 @@ if(array_key_exists('ID', $_GET))
  $user = QL_row($query, [':id' => $_GET['ID']]);
 }
 
-$ranks = QL_array("SELECT * FROM rft_rank;");
-
 $errors = array("Error in modification!","The password and password are not the same again!","Error adding new user!");
 $goods = array("Successful modification!","User successfully created!");
 if(array_key_exists('error', $_POST)):?>
@@ -82,11 +77,6 @@ if(array_key_exists('error', $_POST)):?>
     <input type="text" placeholder="Username" name="username" value="<?=!empty($user)? $user['username'] : "" ?>" required /><br><br>
     <input type="text" placeholder="Name" name="name" value="<?=!empty($user)? $user['name'] : "" ?>" required /><br><br>
     <input type="text" placeholder="E-mail cím" name="email" value="<?=!empty($user)? $user['email'] : "" ?>" required /><br><br>
-    <select name="rank" value="<?php count($ranks) ?>">
-        <?php    foreach ($ranks as $trank): ?>
-        <option <?php if(isset($user['rank'])) if($user['rank'] == $trank['id']) echo("selected"); else echo(""); ?> value="<?=$trank['id']?>"><?=$trank['rank_name']?></option>
-        <?php      endforeach;?>
-    </select><br><br>
     <input type="password" placeholder="Password" name="pwd" <?php if('userAdd' == $_GET['A']) echo("required"); else echo(""); ?>/><br><br>
     <input type="password" placeholder="Password again" name="pwd_again"  <?php if('userAdd' == $_GET['A']) echo("required"); else echo(""); ?>/><br><br>
     <center><input type="submit" name="<?=$_GET['A']?>" value="Save"/></center>
