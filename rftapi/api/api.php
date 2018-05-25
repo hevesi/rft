@@ -337,6 +337,53 @@ function setUpdate($data){
         }
     }
 }
+
+function deleteMovie($data){
+    $error = ['errorcode' => '0x11'];
+    //var_dump($data);
+    if(array_key_exists("filmid", $data)){
+        if(executeDML("DELETE FROM rft_filmek WHERE id=:fid;", [':fid' => $data['filmid']]))
+            echo Success();
+        else 
+            echo HalfSuccess($error);
+    }elseif(array_key_exists("filmname", $data)){
+        if(executeDML("DELETE FROM rft_filmek WHERE cim=':fname';", [':fname' => $data['filmname']]))
+            echo Success();
+        else 
+            echo HalfSuccess($error);
+    }else{
+        echo HalfSuccess($error);
+    }
+}
+
+function deletePresentations($data){
+    $error = ['errorcode' => '0x12'];
+    if(array_key_exists("eloadasid", $data)){
+        if(executeDML("DELETE FROM rft_eloadasok WHERE id=:eloadasid;", [':eloadasid' => $data['eloadasid']]))
+            echo Success();
+        else 
+            echo HalfSuccess($error);
+    }else {
+        echo HalfSuccess($error);
+    }
+}
+
+function setDelete($data){
+    switch ($data["want"]){
+        case "movie":{
+            deleteMovie($data);
+            return;
+        }break;
+        case "pre":{
+            deletePresentations($data);
+            return;
+        }break;
+        default :{
+            $error = ['errorcode' => '0x5'];
+            echo HalfSuccess($error); 
+        }
+    }
+}
  
 if(array_key_exists("data", $_POST )){ 
     if($_POST['data'] != NULL && $_POST['data'] != ""){
@@ -352,7 +399,8 @@ if(array_key_exists("data", $_POST )){
                 case 2:{ //updaate
                     setUpdate($data);
                 }break;
-                case 3:{ //delete (in the near future)
+                case 3:{ //delete 
+                    setDelete($data);
                 }break;
                 default :{
                     $error = ['errorcode' => '0x4'];

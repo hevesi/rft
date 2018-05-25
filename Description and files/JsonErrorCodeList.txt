@@ -16,3 +16,5 @@ Error code list:
 0xe - Buyer update failed.
 0xf - Movie update failed.
 0x10 - Lecture update failed.
+0x11 - Movie delete failed.
+0x12 - Lecture delete failed.
