@@ -369,5 +369,5 @@ if(array_key_exists("data", $_POST )){
         return;
     }
 }
-echo Success();
+echo Error();
 ?>
