@@ -10,6 +10,7 @@ if(array_key_exists('login', $_POST)){
     $row = QL_row($query, $params);
     if($row !== null && $row['id'] !== null){
         $_SESSION['uid'] = $row['id'];
+        $_SESSION['rank'] = $row['rank'];
        header('Location:'.ADMIN_URL);
     }else{
         $query1 = "SELECT * 
@@ -95,6 +96,10 @@ if(array_key_exists('uid', $_SESSION)&& array_key_exists('A', $_GET) && $_GET['A
 }
 if(array_key_exists('uid', $_SESSION)&& array_key_exists('A', $_GET) && $_GET['A'] === 'userAdd'){
     include_once ADMIN_ROOT.'user.php';
+    return;
+}
+if(array_key_exists('uid', $_SESSION)&& array_key_exists('A', $_GET) && $_GET['A'] === 'profil'){
+    include_once ADMIN_ROOT.'profil.php';
     return;
 }
 
