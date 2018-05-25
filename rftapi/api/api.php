@@ -409,6 +409,36 @@ function login($data){
     return;
 }
 
+function regist($data){
+    $error = ['errorcode' => '0x15'];
+    if(array_key_exists("password1",$data) && array_key_exists("password2",$data) && array_key_exists("username",$data) && array_key_exists("email",$data) && array_key_exists("name",$data)){
+        if(array_key_exists("password1",$data) && array_key_exists("password2",$data)){
+            if($data['password1'] == $data['password2']){
+                $q = "INSERT INTO rft_admin (username, name, email, password) VALUES (:username, :name, :email, :password);";
+                $param =[
+                    ':username' => $data['username'],
+                    ':name' => $data['name'],
+                    ':email' => $data['email'],
+                    ':password' =>$data['password1']
+                    ];
+                if(executeDML($q, $param)){
+                    echo Success();
+                    return;
+                }else{
+                    $error = '0x17'; 
+                    echo Error($error);
+                    return;
+                }
+            }else {
+                $error = '0x16'; 
+                echo Error($error);
+                return;
+            }
+        } 
+    }
+    echo Error($error);
+    return;
+}
 
 if(array_key_exists("data", $_POST )){ 
     if($_POST['data'] != NULL && $_POST['data'] != ""){

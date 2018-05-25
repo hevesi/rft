@@ -20,3 +20,6 @@ Error code list:
 0x12 - Lecture delete failed.
 0x13 - Empty username or password.
 0x14 - Invalid username or password.
+0x15 - Invalid user regist (one of the variables).
+0x16 - The password and password are not the same again.
+0x17 - Invalid characters one in variable.
