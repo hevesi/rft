@@ -34,6 +34,9 @@ namespace MoziKliens
                 Film film = new Film();
                 film.want = "movie";
                 film.request = QueryList.insert;
+                film.apikey = Keys.apikey;
+                film.securitykey = Keys.securitykey;
+
                 film.cim = tb_cim.Text;
                 film.mufaj = tb_mufaj.Text;
                 film.hossz = int.Parse(tb_hossz.Text);

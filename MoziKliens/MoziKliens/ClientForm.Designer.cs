@@ -47,6 +47,8 @@
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.jegyToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.eladottJegyekToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.button6 = new System.Windows.Forms.Button();
+            this.button7 = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView2)).BeginInit();
             this.menuStrip1.SuspendLayout();
@@ -59,6 +61,7 @@
             this.dataGridView1.Name = "dataGridView1";
             this.dataGridView1.Size = new System.Drawing.Size(587, 150);
             this.dataGridView1.TabIndex = 0;
+            this.dataGridView1.SelectionChanged += new System.EventHandler(this.dataGridView1_SelectionChanged);
             this.dataGridView1.UserAddedRow += new System.Windows.Forms.DataGridViewRowEventHandler(this.dataGridView1_UserAddedRow);
             // 
             // button1
@@ -109,7 +112,7 @@
             // 
             // button4
             // 
-            this.button4.Location = new System.Drawing.Point(162, 291);
+            this.button4.Location = new System.Drawing.Point(43, 291);
             this.button4.Name = "button4";
             this.button4.Size = new System.Drawing.Size(175, 23);
             this.button4.TabIndex = 6;
@@ -124,6 +127,7 @@
             this.dataGridView2.Name = "dataGridView2";
             this.dataGridView2.Size = new System.Drawing.Size(328, 150);
             this.dataGridView2.TabIndex = 7;
+            this.dataGridView2.SelectionChanged += new System.EventHandler(this.dataGridView2_SelectionChanged);
             // 
             // label1
             // 
@@ -145,7 +149,7 @@
             // 
             // button5
             // 
-            this.button5.Location = new System.Drawing.Point(674, 291);
+            this.button5.Location = new System.Drawing.Point(616, 291);
             this.button5.Name = "button5";
             this.button5.Size = new System.Drawing.Size(133, 23);
             this.button5.TabIndex = 10;
@@ -219,11 +223,33 @@
             this.eladottJegyekToolStripMenuItem.Text = "Eladott jegyek";
             this.eladottJegyekToolStripMenuItem.Click += new System.EventHandler(this.eladottJegyekToolStripMenuItem_Click);
             // 
+            // button6
+            // 
+            this.button6.Location = new System.Drawing.Point(244, 291);
+            this.button6.Name = "button6";
+            this.button6.Size = new System.Drawing.Size(175, 23);
+            this.button6.TabIndex = 17;
+            this.button6.Text = "Kijelölt film törlése";
+            this.button6.UseVisualStyleBackColor = true;
+            this.button6.Click += new System.EventHandler(this.button6_Click);
+            // 
+            // button7
+            // 
+            this.button7.Location = new System.Drawing.Point(783, 291);
+            this.button7.Name = "button7";
+            this.button7.Size = new System.Drawing.Size(175, 23);
+            this.button7.TabIndex = 18;
+            this.button7.Text = "Kijelölt előadás törlése";
+            this.button7.UseVisualStyleBackColor = true;
+            this.button7.Click += new System.EventHandler(this.button7_Click);
+            // 
             // ClientForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(981, 344);
+            this.Controls.Add(this.button7);
+            this.Controls.Add(this.button6);
             this.Controls.Add(this.dateTimePicker2);
             this.Controls.Add(this.label4);
             this.Controls.Add(this.label3);
@@ -274,5 +300,7 @@
         private System.Windows.Forms.MenuStrip menuStrip1;
         private System.Windows.Forms.ToolStripMenuItem jegyToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem eladottJegyekToolStripMenuItem;
+        private System.Windows.Forms.Button button6;
+        private System.Windows.Forms.Button button7;
     }
 }
