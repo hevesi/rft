@@ -65,6 +65,7 @@
     <Compile Include="Eloadas.cs" />
     <Compile Include="Film.cs" />
     <Compile Include="IBaseQuery.cs" />
+    <Compile Include="Keys.cs" />
     <Compile Include="NewMovieForm.cs">
       <SubType>Form</SubType>
     </Compile>

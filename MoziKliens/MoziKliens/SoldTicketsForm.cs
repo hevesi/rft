@@ -35,6 +35,9 @@ namespace MoziKliens
             Vasarlas vasarlas = new Vasarlas();
             vasarlas.want = "vasarlasok";
             vasarlas.request = QueryList.query;
+            vasarlas.apikey = Keys.apikey;
+            vasarlas.securitykey = Keys.securitykey;
+
             string cmd = "data=" + JsonConvert.SerializeObject(vasarlas);
             var httpWebRequest = (HttpWebRequest)WebRequest.Create("http://localhost/rftapi/api/api.php");
             httpWebRequest.ContentType = "application/x-www-form-urlencoded";

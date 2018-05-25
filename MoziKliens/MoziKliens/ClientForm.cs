@@ -22,15 +22,17 @@ namespace MoziKliens
 
         DataTable dtShows = new DataTable();
         List<Eloadas> eloadasok = new List<Eloadas>();
-        
+
         private static readonly HttpClient client = new HttpClient();
         public ClientForm()
         {
             InitializeComponent();
+            moviesFilled = false;
+            showsFilled = true;
             dateTimePicker1.MinDate = DateTime.Now;
             GetMovies();
             GetShows();
-            
+
 
         }
 
@@ -41,6 +43,9 @@ namespace MoziKliens
             Eloadas eloadas = new Eloadas();
             eloadas.want = "eloadasok";
             eloadas.request = QueryList.query;
+            eloadas.apikey = Keys.apikey;
+            eloadas.securitykey = Keys.securitykey;
+
             string cmd = "data=" + JsonConvert.SerializeObject(eloadas);
             var httpWebRequest = (HttpWebRequest)WebRequest.Create("http://localhost/rftapi/api/api.php");
             httpWebRequest.ContentType = "application/x-www-form-urlencoded";
@@ -63,7 +68,7 @@ namespace MoziKliens
 
 
             }
-            
+
             string[] success = responses[1].Split(',');
             if (success[1] == "\"successful\":\"true\"")
             {
@@ -75,11 +80,11 @@ namespace MoziKliens
                     string[] singleEntry = responses[i].Split(',');
 
                     Eloadas newEloadas = new Eloadas();
-                    newEloadas.id = int.Parse(singleEntry[1]);
+                    newEloadas.eloadasid = int.Parse(singleEntry[1]);
                     if (singleEntry[3] != "null")
                         newEloadas.filmid = int.Parse(singleEntry[3]);
                     if (singleEntry[5] != "null")
-                        newEloadas.idopont = singleEntry[5]+":"+singleEntry[6];
+                        newEloadas.idopont = singleEntry[5] + ":" + singleEntry[6];
                     eloadasok.Add(newEloadas);
                 }
                 UpdateShowsDataGrid();
@@ -92,6 +97,9 @@ namespace MoziKliens
             Film film = new Film();
             film.want = "filmek";
             film.request = QueryList.query;
+            film.apikey = Keys.apikey;
+            film.securitykey = Keys.securitykey;
+
             string cmd = "data=" + JsonConvert.SerializeObject(film);
             var httpWebRequest = (HttpWebRequest)WebRequest.Create("http://localhost/rftapi/api/api.php");
             httpWebRequest.ContentType = "application/x-www-form-urlencoded";
@@ -119,13 +127,13 @@ namespace MoziKliens
             {
                 for (int i = 2; i < responses.Length; i++)
                 {
-                    responses[i] =responses[i].Replace("\"", String.Empty);
+                    responses[i] = responses[i].Replace("\"", String.Empty);
                     responses[i] = responses[i].Replace(":", ",");
 
                     string[] singleEntry = responses[i].Split(',');
 
                     Film newFilm = new Film();
-                    newFilm.id = int.Parse(singleEntry[1]);
+                    newFilm.filmid = int.Parse(singleEntry[1]);
                     newFilm.cim = singleEntry[3];
                     if (singleEntry[5] != "null")
                         newFilm.mufaj = singleEntry[5];
@@ -142,6 +150,7 @@ namespace MoziKliens
 
         }
 
+        bool showsFilled;
         void UpdateShowsDataGrid()
         {
             dtShows = new DataTable();
@@ -152,18 +161,21 @@ namespace MoziKliens
             dataGridView2.DataSource = null;
             dataGridView2.Rows.Clear();
 
-            foreach(var item in eloadasok)
+            foreach (var item in eloadasok)
             {
                 if (Convert.ToDateTime(item.idopont) > DateTime.Now)
                 {
-                    string[] row = new string[] { item.id.ToString(),item.filmid.ToString(), item.idopont.ToString() };
+                    string[] row = new string[] { item.eloadasid.ToString(), item.filmid.ToString(), item.idopont.ToString() };
                     dtShows.Rows.Add(row);
                 }
             }
-            
+
             dataGridView2.DataSource = dtShows;
             dataGridView2.Columns[1].AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
+            showsFilled = true;
         }
+
+        bool moviesFilled;
         void UpdateMoviesDataGrid()
         {
             dtFilmek = new DataTable();
@@ -176,12 +188,13 @@ namespace MoziKliens
             dataGridView1.DataSource = null;
             dataGridView1.Rows.Clear();
 
-            foreach(Film item in filmek)
+            foreach (Film item in filmek)
             {
-                string[] row = new string[] { item.id.ToString(), item.cim, item.mufaj, item.hossz.ToString(), item.rendezo };
+                string[] row = new string[] { item.filmid.ToString(), item.cim, item.mufaj, item.hossz.ToString(), item.rendezo };
                 dtFilmek.Rows.Add(row);
             }
             dataGridView1.DataSource = dtFilmek;
+            moviesFilled = true;
         }
         private void button2_Click(object sender, EventArgs e)
         {
@@ -201,14 +214,14 @@ namespace MoziKliens
         //bool newRow;
         private void dataGridView1_UserAddedRow(object sender, DataGridViewRowEventArgs e)
         {
-            
+
         }
 
         private void button4_Click(object sender, EventArgs e)
         {
             NewMovieForm newMovie = new NewMovieForm();
             newMovie.Show();
-    
+
         }
 
         private void button1_Click(object sender, EventArgs e)
@@ -235,15 +248,16 @@ namespace MoziKliens
                 Eloadas eloadas = new Eloadas();
                 eloadas.want = "pre";
                 eloadas.request = QueryList.insert;
-                
+                eloadas.apikey = Keys.apikey;
+                eloadas.securitykey = Keys.securitykey;
+
                 eloadas.filmid = number;
                 string tempDate = dateTimePicker1.Value.ToShortDateString();
                 tempDate = tempDate.Replace(". ", "-");
-                tempDate = tempDate.Replace("." ,"");
-                tempDate += " "+ dateTimePicker2.Value.ToShortTimeString()+":00";
+                tempDate = tempDate.Replace(".", "");
+                tempDate += " " + dateTimePicker2.Value.ToShortTimeString() + ":00";
                 eloadas.idopont = tempDate;
                 string cmd = "data=" + JsonConvert.SerializeObject(eloadas);
-                MessageBox.Show(cmd);
                 var httpWebRequest = (HttpWebRequest)WebRequest.Create("http://localhost/rftapi/api/api.php");
                 httpWebRequest.ContentType = "application/x-www-form-urlencoded";
                 httpWebRequest.Method = "POST";
@@ -285,6 +299,105 @@ namespace MoziKliens
         {
             SoldTicketsForm soldTicketsForm = new SoldTicketsForm();
             soldTicketsForm.Show();
+        }
+
+
+        int movieSelection;
+        private void dataGridView1_SelectionChanged(object sender, EventArgs e)
+        {
+            if (moviesFilled && dataGridView1.SelectedCells.Count > 0)
+            {
+                int selectedRowIndex = dataGridView1.SelectedCells[0].RowIndex;
+                movieSelection = int.Parse(dataGridView1.Rows[selectedRowIndex].Cells[0].Value.ToString());
+            }
+        }
+
+        int presentationSelection;
+        private void dataGridView2_SelectionChanged(object sender, EventArgs e)
+        {
+            if (showsFilled && dataGridView2.SelectedCells.Count > 0)
+            {
+                int selectedRowIndex = dataGridView2.SelectedCells[0].RowIndex;
+                presentationSelection = int.Parse(dataGridView2.Rows[selectedRowIndex].Cells[0].Value.ToString());
+            }
+        }
+
+        private void button6_Click(object sender, EventArgs e)
+        {
+            Film film = new Film();
+            film.apikey = "wdR4vpEBhfbsGDoy";
+            film.securitykey = "FV1WJVl0z7rx8pM6kmNGbQRuYa2s1cqW2paCCrvlrYTGJ";
+            film.want = "movie";
+            film.request = QueryList.delete;
+            film.filmid = movieSelection;
+
+            string cmd = "data=" + JsonConvert.SerializeObject(film);
+            var httpWebRequest = (HttpWebRequest)WebRequest.Create("http://localhost/rftapi/api/api.php");
+            httpWebRequest.ContentType = "application/x-www-form-urlencoded";
+            httpWebRequest.Method = "POST";
+
+            using (var streamWriter = new StreamWriter(httpWebRequest.GetRequestStream()))
+            {
+                streamWriter.Write(cmd);
+                streamWriter.Flush();
+                streamWriter.Close();
+            }
+
+            var httpResponse = (HttpWebResponse)httpWebRequest.GetResponse();
+            string[] responses;
+            string result;
+            using (var streamReader = new StreamReader(httpResponse.GetResponseStream()))
+            {
+                result = streamReader.ReadToEnd();
+                responses = result.Split('{');
+
+
+            }
+            string[] success = responses[1].Split(',');
+            if (success[1] == "\"successful\":\"true\"}")
+            {
+                MessageBox.Show("Sikeres törlés!");
+                GetMovies();
+            }
+        }
+
+        private void button7_Click(object sender, EventArgs e)
+        {
+            Eloadas eloadas = new Eloadas();
+            eloadas.apikey = "wdR4vpEBhfbsGDoy";
+            eloadas.securitykey = "FV1WJVl0z7rx8pM6kmNGbQRuYa2s1cqW2paCCrvlrYTGJ";
+            eloadas.want = "pre";
+            eloadas.request = QueryList.delete;
+            eloadas.eloadasid = presentationSelection;
+
+            string cmd = "data=" + JsonConvert.SerializeObject(eloadas);
+            var httpWebRequest = (HttpWebRequest)WebRequest.Create("http://localhost/rftapi/api/api.php");
+            httpWebRequest.ContentType = "application/x-www-form-urlencoded";
+            httpWebRequest.Method = "POST";
+
+            using (var streamWriter = new StreamWriter(httpWebRequest.GetRequestStream()))
+            {
+                streamWriter.Write(cmd);
+                streamWriter.Flush();
+                streamWriter.Close();
+            }
+
+            var httpResponse = (HttpWebResponse)httpWebRequest.GetResponse();
+            string[] responses;
+            string result;
+            using (var streamReader = new StreamReader(httpResponse.GetResponseStream()))
+            {
+                result = streamReader.ReadToEnd();
+                responses = result.Split('{');
+
+
+            }
+            string[] success = responses[1].Split(',');
+            if (success[1] == "\"successful\":\"true\"}")
+            {
+                MessageBox.Show("Sikeres törlés!");
+                GetShows();
+            }
         }
     }
 }

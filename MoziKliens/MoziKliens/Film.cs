@@ -9,7 +9,7 @@ namespace MoziKliens
     class Film : BaseQuery
     {
         int _id;
-        public int id { get { return _id; } set { _id = value; } }
+        public int filmid { get { return _id; } set { _id = value; } }
 
         string _cim;
         public string cim

@@ -9,7 +9,7 @@ namespace MoziKliens
     class Eloadas : BaseQuery
     {
         int _id;
-        public int id
+        public int eloadasid
         {
             get { return _id; }
             set { _id = value; }
