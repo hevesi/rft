@@ -384,10 +384,41 @@ function setDelete($data){
         }
     }
 }
- 
+
+function login($data){
+    $error = ['errorcode' => '0x13'];
+    if(array_key_exists("username",$data) && array_key_exists("password",$data)){
+        $q = "SELECT * 
+              FROM rft_admin 
+              WHERE username = :username AND password = :password";
+        $params = [
+            ':username'    =>  $data['username'],
+            ':password' => $data['password']
+            ];
+        $logged = QL_row($q,$params);
+        $error2 = ['errorcode' => '0x14'];        
+        if($logged != null){
+            echo Success();
+            return;
+        }else{
+            echo Error($error2);
+            return;
+        }
+    }
+    echo Error($error);
+    return;
+}
+
+
 if(array_key_exists("data", $_POST )){ 
     if($_POST['data'] != NULL && $_POST['data'] != ""){
         $data = json_decode((string)$_POST['data'], true);
+        if(array_key_exists("request",$data)){
+            if($data['request'] == 4)
+                login($data);
+            if($data['request'] == 5)
+                regist($data);
+        }
         if(getValid($data['apikey'], $data['securitykey'])){
             switch ($data['request']){
                 case 0:{ //query

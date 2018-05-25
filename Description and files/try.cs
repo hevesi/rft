@@ -11,7 +11,7 @@ using System.IO;
 
 namespace jsontry {
     enum QueryList {
-        query , insert, update, delete
+        query , insert, update, delete, login, regist
     }
     interface IBaseQuery {
         string apikey { get; }
@@ -57,6 +57,31 @@ namespace jsontry {
 
 
     }
+	//user log
+	class Ulog {
+        QueryList q;
+        public QueryList request { get => q; set => q = value; }
+        public string username { get; set; }
+        private string _password;
+
+        public string password
+        {
+            get { return _password; }
+            set {
+                SHA256 sha256 = SHA256Managed.Create();
+                byte[] bytes = Encoding.UTF8.GetBytes(value);
+                byte[] hash = sha256.ComputeHash(bytes);
+                StringBuilder result = new StringBuilder();
+                for (int i = 0; i < hash.Length; i++)
+                {
+                    result.Append(hash[i].ToString("X2"));
+                }
+                _password= result.ToString().ToLower();
+            }
+        }
+
+    }
+	////
     class Program
     {
         
@@ -70,6 +95,12 @@ namespace jsontry {
             vev.request = QueryList.insert;
             string asd = "data="+JsonConvert.SerializeObject(vev);
 
+			//user log
+			Ulog ulog = new Ulog();
+            ulog.request = QueryList.login;
+            ulog.username = "kombt";
+            ulog.password = "admin";
+			//
             Console.WriteLine(asd);
             var httpWebRequest = (HttpWebRequest)WebRequest.Create("http://localhost/rftapi/api/api.php");
             httpWebRequest.ContentType = "application/x-www-form-urlencoded";
