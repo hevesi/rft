@@ -396,12 +396,12 @@ function login($data){
             ':password' => $data['password']
             ];
         $logged = QL_row($q,$params);
-        $error2 = ['errorcode' => '0x14'];        
+        $error = '0x14';        
         if($logged != null){
             echo Success();
             return;
         }else{
-            echo Error($error2);
+            echo Error($error);
             return;
         }
     }
@@ -414,10 +414,14 @@ if(array_key_exists("data", $_POST )){
     if($_POST['data'] != NULL && $_POST['data'] != ""){
         $data = json_decode((string)$_POST['data'], true);
         if(array_key_exists("request",$data)){
-            if($data['request'] == 4)
+            if($data['request'] == 4){
                 login($data);
-            if($data['request'] == 5)
+                return;
+            }
+            if($data['request'] == 5){
                 regist($data);
+                return;
+            }
         }
         if(getValid($data['apikey'], $data['securitykey'])){
             switch ($data['request']){

@@ -18,3 +18,5 @@ Error code list:
 0x10 - Lecture update failed.
 0x11 - Movie delete failed.
 0x12 - Lecture delete failed.
+0x13 - Empty username or password.
+0x14 - Invalid username or password.
