@@ -43,8 +43,6 @@ namespace MoziKliens
             Eloadas eloadas = new Eloadas();
             eloadas.want = "eloadasok";
             eloadas.request = QueryList.query;
-            eloadas.apikey = Keys.apikey;
-            eloadas.securitykey = Keys.securitykey;
 
             string cmd = "data=" + JsonConvert.SerializeObject(eloadas);
             var httpWebRequest = (HttpWebRequest)WebRequest.Create("http://localhost/rftapi/api/api.php");
@@ -97,8 +95,6 @@ namespace MoziKliens
             Film film = new Film();
             film.want = "filmek";
             film.request = QueryList.query;
-            film.apikey = Keys.apikey;
-            film.securitykey = Keys.securitykey;
 
             string cmd = "data=" + JsonConvert.SerializeObject(film);
             var httpWebRequest = (HttpWebRequest)WebRequest.Create("http://localhost/rftapi/api/api.php");
@@ -248,8 +244,6 @@ namespace MoziKliens
                 Eloadas eloadas = new Eloadas();
                 eloadas.want = "pre";
                 eloadas.request = QueryList.insert;
-                eloadas.apikey = Keys.apikey;
-                eloadas.securitykey = Keys.securitykey;
 
                 eloadas.filmid = number;
                 string tempDate = dateTimePicker1.Value.ToShortDateString();
@@ -325,8 +319,6 @@ namespace MoziKliens
         private void button6_Click(object sender, EventArgs e)
         {
             Film film = new Film();
-            film.apikey = "wdR4vpEBhfbsGDoy";
-            film.securitykey = "FV1WJVl0z7rx8pM6kmNGbQRuYa2s1cqW2paCCrvlrYTGJ";
             film.want = "movie";
             film.request = QueryList.delete;
             film.filmid = movieSelection;
@@ -364,8 +356,6 @@ namespace MoziKliens
         private void button7_Click(object sender, EventArgs e)
         {
             Eloadas eloadas = new Eloadas();
-            eloadas.apikey = "wdR4vpEBhfbsGDoy";
-            eloadas.securitykey = "FV1WJVl0z7rx8pM6kmNGbQRuYa2s1cqW2paCCrvlrYTGJ";
             eloadas.want = "pre";
             eloadas.request = QueryList.delete;
             eloadas.eloadasid = presentationSelection;

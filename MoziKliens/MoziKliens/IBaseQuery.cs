@@ -8,7 +8,7 @@ namespace MoziKliens
 {
     enum QueryList
     {
-        query, insert, update, delete
+        query, insert, update, delete,login, regist
     }
     interface IBaseQuery
     {

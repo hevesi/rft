@@ -32,8 +32,6 @@ namespace MoziKliens
                 Vasarlas vasarlas = new Vasarlas();
                 vasarlas.want = "buying";
                 vasarlas.request = QueryList.insert;
-                vasarlas.apikey = Keys.apikey;
-                vasarlas.securitykey = Keys.securitykey;
 
                 vasarlas.vevoid = 1;
                 vasarlas.filmid = int.Parse(tb_EloadasId.Text);
