@@ -73,6 +73,18 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="SellTicketForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="SellTicketForm.Designer.cs">
+      <DependentUpon>SellTicketForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="SoldTicketsForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="SoldTicketsForm.Designer.cs">
+      <DependentUpon>SoldTicketsForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="Vasarlas.cs" />
     <Compile Include="Vevo.cs" />
     <EmbeddedResource Include="ClientForm.resx">
@@ -90,6 +102,12 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
+    <EmbeddedResource Include="SellTicketForm.resx">
+      <DependentUpon>SellTicketForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SoldTicketsForm.resx">
+      <DependentUpon>SoldTicketsForm.cs</DependentUpon>
+    </EmbeddedResource>
     <None Include="Connected Services\MoziService\MoziKliens.MoziService.Film.datasource">
       <DependentUpon>Reference.svcmap</DependentUpon>
     </None>

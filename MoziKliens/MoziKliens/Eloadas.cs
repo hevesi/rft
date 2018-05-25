@@ -8,15 +8,22 @@ namespace MoziKliens
 {
     class Eloadas : BaseQuery
     {
+        int _id;
+        public int id
+        {
+            get { return _id; }
+            set { _id = value; }
+        }
+
         int _filmId;
-        public int filmId
+        public int filmid
         {
             get { return _filmId; }
             set { _filmId = value; }
         }
 
-        DateTime _idopont;
-        public DateTime idopont
+        string _idopont;
+        public string idopont
         {
             get { return _idopont; }
             set { _idopont = value; }

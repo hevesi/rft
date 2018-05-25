@@ -8,15 +8,22 @@ namespace MoziKliens
 {
     class Vasarlas : BaseQuery
     {
+        int _id;
+        public int id
+        {
+            get { return _id; }
+            set { _id = value; }
+        }
+
         int _filmId;
-        public int filmId
+        public int filmid
         {
             get { return _filmId; }
             set { _filmId = value; }
         }
 
         int _vevoId;
-        public int vevoId
+        public int vevoid
         {
             get { return _vevoId; }
             set { _vevoId = value; }

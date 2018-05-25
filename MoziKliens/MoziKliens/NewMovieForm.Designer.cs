@@ -122,6 +122,7 @@
             this.button_Exit.TabIndex = 9;
             this.button_Exit.Text = "Kilépés";
             this.button_Exit.UseVisualStyleBackColor = true;
+            this.button_Exit.Click += new System.EventHandler(this.button_Exit_Click);
             // 
             // NewMovieForm
             // 
